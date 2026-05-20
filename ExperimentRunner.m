@@ -53,9 +53,9 @@ for s = 1:numel(strategies)
 
                     % Reinitialize passenger-dependent arrays if N changes
                     if numel(params.corridor_time) ~= params.N
-                        params.corridor_time = 4 + 4*rand(1, params.N);
-                        params.has_luggage = rand(1, params.N) < 0.75;
-                        params.luggage_time = 1 + 6*rand(1, params.N);
+                        params.corridor_time = 6 + 6*rand(1, params.N);
+                        params.has_luggage = rand(1, params.N) < 0.6;
+                        params.luggage_time = 1 + 13*rand(1, params.N);
                         params.eligibility = repmat("All", 1, params.N);
                         params.eligibility(1:min(3, params.N)) = "PreboardList";
                     end
@@ -148,19 +148,17 @@ for s = 1:numel(strategies)
     end
 end
 
-summary_table = struct2table(summary_rows);
 run_table = struct2table(run_rows);
+% Select only total boarding time and total aisle wait columns
+run_table = run_table(:, {'boarding_time', 'total_wait_aisle'});
+
 output_dir = fullfile(pwd, 'results');
 if ~exist(output_dir, 'dir')
     mkdir(output_dir);
 end
 
 stamp = datestr(now, 'yyyymmdd_HHMMSS');
-output_path = fullfile(output_dir, ['experiment_summary_' stamp '.csv']);
-writetable(summary_table, output_path);
-
-run_output_path = fullfile(output_dir, ['experiment_runs_' stamp '.csv']);
+run_output_path = fullfile(output_dir, [char(strat) '_' stamp '.csv']);
 writetable(run_table, run_output_path);
 
-fprintf("\nSaved summary: %s\n", output_path);
 fprintf("Saved runs: %s\n", run_output_path);
