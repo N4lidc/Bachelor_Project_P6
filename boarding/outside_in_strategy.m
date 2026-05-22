@@ -1,7 +1,4 @@
 function gate_queue = outside_in_strategy(P, N)
-% Outside-in boarding: Window seats → middle seats → aisle seats.
-% Seat numbers: 0=A, 1=B, 2=C, 3=D, 4=E, 5=F
-% Window seats: 0, 5 | Middle seats: 1, 4 | Aisle seats: 2, 3
 
     passenger_ids = 1:N;
     seat_numbers = [P.seat_number];

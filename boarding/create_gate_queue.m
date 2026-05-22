@@ -1,5 +1,4 @@
 function gate_queue = create_gate_queue(boarding_strategy, P, N, J)
-% Dispatcher for different boarding strategies
 
     switch lower(string(boarding_strategy))
         case "random"

@@ -1,5 +1,4 @@
 function x = truncnorm_sample(mu, sigma, a, b, n)
-% Sample n values from a truncated normal distribution using rejection.
 
 if nargin < 5
     n = 1;

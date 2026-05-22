@@ -17,7 +17,6 @@ show_progress = true;
 % Base params for defaults
 base_params = load_params(base_seed);
 
-% TODO: replace placeholders with actual sweeps
 strategies = {base_params.boarding_strategy};
 N_values = base_params.N;
 J_values = base_params.J;

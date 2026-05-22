@@ -8,7 +8,6 @@ seat = P(pid).seat_number;
 % A passenger blocks if they're already seated in an adjacent seat
 seat_blocked = 0;
 
-% Window seats (0, 5) can be blocked by middle seats (1, 4)
 if seat == 0
     seat_blocked = (seat_occupied(row+1,2)==1)||(seat_occupied(row+1,3)==1);
 elseif seat == 1
@@ -20,7 +19,6 @@ elseif seat == 5
 end
 
 if seat_blocked == 1
-    % Seat is blocked, wait for interference to resolve
     P(pid).state = "WaitingForSeat";
     P(pid).t_seat_wait = t + seat_interference_time(pid);
     if isnan(KPI.waitStartSeat(pid))
@@ -30,7 +28,6 @@ if seat_blocked == 1
     events = push(events, P(pid).t_seat_wait, PRIO.SEAT, 6, pid);
     fprintf("  BLOCKED_AT_SEAT Pax%d row %d seat %d (wait=%.1f)\n", pid, row, seat, P(pid).t_seat_wait);
 else
-    % Seat is available, sit down immediately
     if seat_occupied(row+1, seat+1) == 1
         KPI.seat_duplicate_violations = KPI.seat_duplicate_violations + 1;
     end

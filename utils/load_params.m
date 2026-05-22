@@ -32,7 +32,7 @@ params.luggage_time_sigma = 1.5;
 params.luggage_time_min = 1.0;
 params.luggage_time_max = 7.0;
 
-% Uniform parameters (interaction delays)
+% Uniform parameters 
 params.scan_time_min = 1.5;
 params.scan_time_max = 2.5;
 params.corridor_time_min = 4.0;
@@ -44,11 +44,11 @@ params.seat_interference_time_max = 3.0;
 params.walking_time = truncnorm_sample(params.walking_time_mu, params.walking_time_sigma, params.walking_time_min, params.walking_time_max, params.N);
 params.scan_time = params.scan_time_min + (params.scan_time_max - params.scan_time_min) * rand(1, params.N);
 params.corridor_time = params.corridor_time_min + (params.corridor_time_max - params.corridor_time_min) * rand(1, params.N);
-params.has_luggage = rand(1, params.N) < 0.4; % 75% have luggage
+params.has_luggage = rand(1, params.N) < 0.4; % 40% of passengers have luggage
 params.luggage_time = truncnorm_sample(params.luggage_time_mu, params.luggage_time_sigma, params.luggage_time_min, params.luggage_time_max, params.N);
 params.seat_interference_time = params.seat_interference_time_min + (params.seat_interference_time_max - params.seat_interference_time_min) * rand(1, params.N);
 
-% Boarding eligibility (boarding groups)
+% Boarding eligibility (boarding groups or like basically preboarding list)
 params.eligibility = repmat("All", 1, params.N);
 params.eligibility(1:3) = "PreboardList";
 

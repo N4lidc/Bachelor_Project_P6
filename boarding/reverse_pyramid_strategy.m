@@ -1,5 +1,4 @@
 function gate_queue = reverse_pyramid_strategy(P, N)
-% Reverse pyramid boarding:
 
     passenger_ids = 1:N;
     seat_numbers = [P.seat_number];
@@ -21,11 +20,6 @@ function gate_queue = reverse_pyramid_strategy(P, N)
         end
     end
 
-    % Sort first by seat priority ascending:
-    % window -> middle -> aisle
-    %
-    % Then sort by row descending:
-    % back rows -> front rows
     [~, order] = sortrows([seat_priority(:), -rows(:)], [1 2]);
 
     gate_queue = passenger_ids(order);

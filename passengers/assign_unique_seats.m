@@ -1,7 +1,6 @@
 function [assigned_row, seat_number] = assign_unique_seats(N, J)
-% Sample unique seat slots from the full cabin (J rows x 6 seats)
-all_slots = randperm(J*6, N); % sample without replacement
+all_slots = randperm(J*6, N); 
 
-assigned_row = ceil(all_slots / 6); % rows are 1..J
-seat_number = mod(all_slots - 1, 6); % seats are 0..5
+assigned_row = ceil(all_slots / 6); 
+seat_number = mod(all_slots - 1, 6); 
 end

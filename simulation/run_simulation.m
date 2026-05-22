@@ -62,7 +62,7 @@ KPI.time_backward_violations = 0;
 KPI.event_starvation = false;
 KPI.entry_block_count = 0;
 
-% Create gate queue
+
 gate_queue = create_gate_queue(params.boarding_strategy, P, params.N, params.J);
 
 if options.verbose
@@ -72,7 +72,6 @@ if options.verbose
     fprintf("Gate queue eligibility: %s\n", strjoin(string({P(gate_queue).eligibility}), ", "));
 end
 
-% Seat occupancy tracking
 seat_occupied = zeros(params.J+1, 6);
 
 % Event list and priorities
@@ -135,10 +134,8 @@ while ~isempty(events)
     prev_global_state = global_state;
 
     if type == 7
-        % Handle global state check
         [global_state, scanner, params.lambda, filter, events, cadence_pending] = global_state_machine(global_state, t, params.time_finalcall, params.time_close, scanner, params.lambda, filter, params.cadence, number_incorridor, params.max_incorridor, params.resume_incorridor, cadence_pending, events, PRIO);
     elseif type == 1
-        % Cadence release - handle gate_queue locally since it needs modification
         cadence_pending = false;
         if options.verbose
             fprintf("\nt=%.1f cadence_release\n",t);

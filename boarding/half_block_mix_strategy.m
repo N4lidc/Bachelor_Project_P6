@@ -1,29 +1,11 @@
 function gate_queue = half_block_mix_strategy(P, N, J)
-% Half-block mix boarding:
-% The aircraft is divided into 10 zones based on:
-%   1. row group: front -> back divided into 5 blocks
-%   2. side of aisle: left side or right side
-%
-% The boarding order alternates side while moving diagonally from back to front.
-%
-% Seat numbers:
-% 0 = A, 1 = B, 2 = C, 3 = D, 4 = E, 5 = F
-%
-% Left side:  A, B, C = seats 0, 1, 2
-% Right side: D, E, F = seats 3, 4, 5
 
     passenger_ids = 1:N;
     rows = [P.assigned_row];
     seats = [P.seat_number];
 
-    % Divide rows into 5 row groups.
-    % row_group = 1 means front group.
-    % row_group = 5 means back group.
     row_group = min(5, floor((rows - 1) * 5 / J) + 1);
 
-    % Define side of aisle.
-    % 1 = left side: A/B/C
-    % 2 = right side: D/E/F
     side = zeros(1, N);
 
     for i = 1:N
@@ -36,12 +18,6 @@ function gate_queue = half_block_mix_strategy(P, N, J)
         end
     end
 
-    % Each row is one boarding zone:
-    % [row_group, side]
-    %
-    % This follows the diagonal half-block mix pattern:
-    % back-left, second-back-right, middle-left, middle-front-right, front-left,
-    % then back-right, second-back-left, middle-right, middle-front-left, front-right.
     zone_order = [
         5 1
         4 2
